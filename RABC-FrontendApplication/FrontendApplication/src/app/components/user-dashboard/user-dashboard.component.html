@@ -1,0 +1,54 @@
+<div class="about-section">
+    <h2>About This Project</h2>
+    <p>
+      This project focuses on implementing <strong>Authentication</strong>, 
+      <strong>Authorization</strong>, and <strong>Role-Based Access Control (RBAC)</strong>. 
+      It manages user access securely and ensures role-specific permissions to application features.
+    </p>
+  
+    <h3>Key Features</h3>
+    <div>
+      <h4>Authentication</h4>
+      <p>
+        - Secure user registration with input validation and password hashing using bcrypt.<br>
+        - User login with email and password, generating secure JSON Web Tokens (JWT) for session management.<br>
+        - Logout functionality with token invalidation for added security.
+      </p>
+    </div>
+  
+    <div>
+      <h4>Authorization</h4>
+      <p>
+        - Middleware to validate JWTs and decode user roles.<br>
+        - Role-based endpoint protection to ensure only authorized users can access certain resources.
+      </p>
+    </div>
+  
+    <div>
+      <h4>Role-Based Access Control (RBAC)</h4>
+      <p>
+        - Two predefined roles: <strong>User</strong> and <strong>Admin</strong>.<br>
+        - Middleware to enforce access control based on roles.
+      </p>
+    </div>
+  
+    <h3>Implementation Highlights</h3>
+    <div>
+      <p>
+        - <strong>Backend:</strong> Developed using Node.js with Express.js for fast and scalable server-side operations.<br>
+        - <strong>Database:</strong> MongoDB for flexible and efficient data management.<br>
+        - <strong>Authentication Protocols:</strong> JWT-based authentication with robust middleware.<br>
+        - <strong>RBAC Middleware:</strong> Ensures efficient route protection based on user roles.
+      </p>
+    </div>
+  
+    <h3>Security Enhancements</h3>
+    <div>
+      <p>
+        - HTTPS for secure communication.<br>
+        - Rate-limiting to mitigate brute force attacks.<br>
+        - Token expiration and refresh mechanisms for secure session management.
+      </p>
+    </div>
+  </div>
+  

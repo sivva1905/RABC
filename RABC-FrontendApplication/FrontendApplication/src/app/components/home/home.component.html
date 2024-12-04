@@ -1,0 +1,173 @@
+<div class="d-flex justify-content-between">
+    <div class="p-2">
+        <h1>Admin-Dashboard</h1>
+    </div>
+    <div class="p-2">
+        <button class="btn btn-primary" (click)="openAdduserDialog(addUserTemplate)" [hidden]="isUserRole" >Add User</button>
+    </div>
+</div>
+<div *ngIf="loading" class="spinner-border text-primary d-flex justify-content-center align-items-center" role="status">
+    <span class="visually-hidden"></span>
+  </div>
+  
+<div *ngIf="!loading">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th [hidden]="isUserRole" scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user._id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.role}}</td>
+                <td [hidden]="isUserRole">
+                    <button class="btn btn-primary"
+                        (click)="loadUser(user);UpdateUserDialog(UpdateUserTemplate)">Edit</button>
+                    <button class="btn btn-danger" (click)="deleteUser(user.email)"
+                        style="margin-left: 10px;">Delete</button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #addUserTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title fs-4">Add User</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAdduserDialog()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form">
+            <div class="d-grid">
+                <div class="form-label">Name<span class="text-danger">*</span></div>
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="name" type="text">
+                </mat-form-field>
+                <div class="text-danger"
+                    *ngIf="form.get('name')?.invalid &&(form.get('name')?.dirty || form.get('name')?.touched || submitted)">
+                    <div *ngIf="form.get('name')?.errors?.['required']">
+                        name is required!
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid">
+                <div class="form-label">Email<span class="text-danger">*</span></div>
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="email" type="text">
+                </mat-form-field>
+                <div class="text-danger"
+                    *ngIf="form.get('email')?.invalid &&(form.get('email')?.dirty || form.get('email')?.touched || submitted)">
+                    <div *ngIf="form.get('email')?.errors?.['required']">
+                        Email is required!
+                    </div>
+                    <div *ngIf="form.get('email')?.hasError('pattern')">
+                        Email should be valid!
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid">
+                <div class="form-label">Password<span class="text-danger">*</span></div>
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="password" type="text">
+                </mat-form-field>
+                <div class="text-danger"
+                    *ngIf="form.get('password')?.invalid &&(form.get('password')?.dirty || form.get('password')?.touched || submitted)">
+                    <div *ngIf="form.get('password')?.errors?.['required']">
+                        Password is required!
+                    </div>
+                    <div *ngIf="form.get('password')?.hasError('pattern')">
+                        Password must contain at least one uppercase letter, one lowercase letter, one number, and
+                        one special character.
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid">
+                <div class="form-label">Select Role<span class="text-danger">*</span></div>
+                <mat-form-field>
+                    <select matNativeControl formControlName="role" required>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </mat-form-field>
+                <div class="text-danger"
+                    *ngIf="form.get('role')?.invalid &&(form.get('role')?.dirty || form.get('role')?.touched || submitted)">
+                    <div *ngIf="form.get('role')?.errors?.['required']">
+                        role is required!
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="addUser()">
+            Save
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #UpdateUserTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title fs-4">Add User</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAdduserDialog()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form">
+            <div class="d-grid">
+                <div class="form-label">Name<span class="text-danger">*</span></div>
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="name" type="text">
+                </mat-form-field>
+                <div class="text-danger"
+                    *ngIf="form.get('name')?.invalid &&(form.get('name')?.dirty || form.get('name')?.touched || submitted)">
+                    <div *ngIf="form.get('name')?.errors?.['required']">
+                        name is required!
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid">
+                <div class="form-label">Email<span class="text-danger">*</span></div>
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="email" type="text">
+                </mat-form-field>
+                <div class="text-danger"
+                    *ngIf="form.get('email')?.invalid &&(form.get('email')?.dirty || form.get('email')?.touched || submitted)">
+                    <div *ngIf="form.get('email')?.errors?.['required']">
+                        Email is required!
+                    </div>
+                    <div *ngIf="form.get('email')?.hasError('pattern')">
+                        Email should be valid!
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid">
+                <div class="form-label">Select Role<span class="text-danger">*</span></div>
+                <mat-form-field>
+                    <select matNativeControl formControlName="role" required>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </mat-form-field>
+                <div class="text-danger"
+                    *ngIf="form.get('role')?.invalid &&(form.get('role')?.dirty || form.get('role')?.touched || submitted)">
+                    <div *ngIf="form.get('role')?.errors?.['required']">
+                        role is required!
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="UpdateUser()">
+            Save
+        </button>
+    </div>
+</ng-template>
